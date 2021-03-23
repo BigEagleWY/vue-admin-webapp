@@ -8,11 +8,22 @@ import {
   Message
 } from 'element-ui' // 引用element-ui的加载和消息提示组件
 
+
+
+let baseURL = "";
+
+let hashName = location.hash;
+if(hashName.includes("/login")){
+  baseURL= process.env.VUE_APP_LOGIN_API;
+}else{
+  baseURL= process.env.VUE_APP_BASE_API;
+}
+
 const $axios = axios.create({
   // 设置超时时间
   timeout: 30000,
   // 基础url，会在请求url中自动添加前置链接
-  baseURL: process.env.VUE_APP_BASE_API
+  baseURL: baseURL
 })
 Vue.prototype.$http = axios // 并发请求
 // 在全局请求和响应拦截器中添加请求状态
@@ -82,25 +93,31 @@ $axios.interceptors.response.use(
   }
 )
 
+
+const defaultData = {
+  companyCode: "shyz",
+  siteCode: "shyz"
+}
 // get，post请求方法
 export default {
   post(url, data) {
-    let apiUrl = url + '?companyCode=fulan&siteCode=fulan';
+    let params = Object.assign(data, defaultData);
     return $axios({
       method: 'post',
-      url:apiUrl,
-      data: Qs.stringify(data),
+      url,
+      data:params,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8'
       }
     })
   },
-  
-  get(url, params) {
-    let apiUrl = url + '?companyCode=fulan&siteCode=fulan';
+
+  get(url, data) {
+    let params = Object.assign(data, defaultData);
+
     return $axios({
       method: 'get',
-      url:apiUrl,
+      url,
       params
     })
   }

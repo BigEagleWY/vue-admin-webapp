@@ -57,18 +57,22 @@
 <script>
 import SlideVerify from "@/components/SlideVerify";
 import { login } from "@/api/login";
-import {sm2} from "sm-crypto";
+import { sm2 } from "sm-crypto";
 import md5 from "md5";
-import func from "@/utils/commonfunc"
+import func from "@/utils/commonfunc";
+import { mapState } from "vuex";
 export default {
+  computed: {
+    ...mapState(["user"]),
+  },
   data() {
     return {
       notifyObj: null,
       text: "向右滑动",
       showSlide: false,
       ruleForm: {
-        user: "admin",
-        password: "123456",
+        user: "yzceshi",
+        password: "123456Az",
       },
       rules: {
         user: [
@@ -82,7 +86,7 @@ export default {
   mounted() {
     // this.shopTip()
 
-    console.log(func)
+    console.log();
   },
   methods: {
     onSuccess() {
@@ -110,7 +114,8 @@ export default {
         "047214fe3a249b75b6ba92ee494e0a8a68c0a19893a480b3c28bf06cd5b7d621243c7f6704caa3b43ade6be15de11cabd185611a9edfdcf1b11d7a2478c67b4c1c";
       let salt = func.generateCharacter(16);
       let date = func.getCurrentDay();
-      let key="",sign="";
+      let key = "",
+        sign = "";
       let account = sm2.doEncrypt(
         this.ruleForm.user.trim() + salt,
         public_key,
@@ -123,22 +128,29 @@ export default {
       );
       account = "04" + account;
       password = "04" + password;
-      if(salt && date){
-        key = salt+date
-        console.log("validate-key",key)
+      if (salt && date) {
+        key = salt + date;
+        console.log("validate-key", key);
       }
-      sign="account="+account+"&password="+password+"&salt="+salt+"&key="+key;
+      sign =
+        "account=" +
+        account +
+        "&password=" +
+        password +
+        "&salt=" +
+        salt +
+        "&key=" +
+        key;
 
-      let parms={
+      let parms = {
         account,
         password,
-        salt:salt,
+        salt: salt,
         sign: md5(sign),
-        languageCode:  null 
-      }
+        languageCode: null,
+      };
 
       login(parms);
-
     },
     shopTip() {
       this.notifyObj = this.$notify({

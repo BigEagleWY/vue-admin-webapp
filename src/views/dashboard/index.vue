@@ -7,7 +7,7 @@
 <script>
 import adminComponent from './admin'
 import userComponent from './user'
-import { mapGetters } from 'vuex'
+import { mapGetters} from 'vuex'
 export default {
   computed: {
     ...mapGetters(['userName']),
@@ -25,6 +25,7 @@ export default {
   },
   mounted(){
     console.log("dashbord init")
+    
   }
 }
 </script>
