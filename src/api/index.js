@@ -3,7 +3,10 @@ import Qs from 'qs'
 import store from '@/store'
 import router from '@/router'
 import Vue from 'vue'
-import { Loading, Message } from 'element-ui' // 引用element-ui的加载和消息提示组件
+import {
+  Loading,
+  Message
+} from 'element-ui' // 引用element-ui的加载和消息提示组件
 
 const $axios = axios.create({
   // 设置超时时间
@@ -18,7 +21,9 @@ let loading = null
 // 请求拦截器
 $axios.interceptors.request.use(
   config => {
-    loading = Loading.service({ text: '拼命加载中' })
+    loading = Loading.service({
+      text: '拼命加载中'
+    })
     const token = store.getters.token
     if (token) {
       config.headers.Authorization = token // 请求头部添加token
@@ -80,19 +85,22 @@ $axios.interceptors.response.use(
 // get，post请求方法
 export default {
   post(url, data) {
+    let apiUrl = url + '?companyCode=fulan&siteCode=fulan';
     return $axios({
       method: 'post',
-      url,
+      url:apiUrl,
       data: Qs.stringify(data),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       }
     })
   },
+  
   get(url, params) {
+    let apiUrl = url + '?companyCode=fulan&siteCode=fulan';
     return $axios({
       method: 'get',
-      url,
+      url:apiUrl,
       params
     })
   }

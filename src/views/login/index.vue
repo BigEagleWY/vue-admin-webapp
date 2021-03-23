@@ -19,11 +19,11 @@
       </transition>
     </div>
     <div class="loginBox">
-      <h2 class="loginH2"><strong>Vue</strong> 后台管理系统</h2>
+      <h2 class="loginH2">后台管理系统</h2>
       <div class="loginCon">
         <div class="titleDiv">
-          <h3>Sign up now</h3>
-          <p>Enter your username and password to log on:</p>
+          <h3>登录</h3>
+          <p>输入您的用户名和密码进行登录</p>
           <i class="el-icon-key"></i>
         </div>
         <el-form ref="loginForm" :rules="rules" :model="ruleForm">
@@ -55,82 +55,105 @@
 </template>
 
 <script>
-import SlideVerify from '@/components/SlideVerify'
+import SlideVerify from "@/components/SlideVerify";
+import { login } from "@/api/login";
+import {sm2} from "sm-crypto";
+import md5 from "md5";
+import func from "@/utils/commonfunc"
 export default {
   data() {
     return {
       notifyObj: null,
-      text: '向右滑动',
+      text: "向右滑动",
       showSlide: false,
       ruleForm: {
-        user: 'admin',
-        password: '123456'
+        user: "admin",
+        password: "123456",
       },
       rules: {
         user: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 15, message: '长度在3到5个字符', trigger: 'blur' }
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 15, message: "长度在3到5个字符", trigger: "blur" },
         ],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
-      }
-    }
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+      },
+    };
   },
   mounted() {
-    this.shopTip()
+    // this.shopTip()
+
+    console.log(func)
   },
   methods: {
     onSuccess() {
-      this.showSlide = false
-      this._login()
+      this.showSlide = false;
+      this._login();
     },
     onFail() {
-      this.$message.error('验证失败')
+      this.$message.error("验证失败");
     },
     refresh() {
-      this.$refs.slideDiv.reset()
+      this.$refs.slideDiv.reset();
     },
     loginYz(form) {
-      this.$refs[form].validate(valid => {
+      this.$refs[form].validate((valid) => {
         if (valid) {
-          this.showSlide = true
+          // this.showSlide = true 不使用滑动验证，直接登录
+          this._login();
         } else {
-          return
+          return;
         }
-      })
+      });
     },
     _login() {
-      this.$store
-        .dispatch('user/_login', this.ruleForm)
-        .then(res => {
-          if (!res.data.success) {
-            this.refresh()
-          } else {
-            this.$router.push(this.$route.query.redirect)
-            if (this.notifyObj) {
-              this.notifyObj.close()
-            }
-            this.notifyObj = null
-          }
-        })
-        .catch(error => {
-          this.refresh()
-          this.$message.error(error)
-        })
+      const public_key =
+        "047214fe3a249b75b6ba92ee494e0a8a68c0a19893a480b3c28bf06cd5b7d621243c7f6704caa3b43ade6be15de11cabd185611a9edfdcf1b11d7a2478c67b4c1c";
+      let salt = func.generateCharacter(16);
+      let date = func.getCurrentDay();
+      let key="",sign="";
+      let account = sm2.doEncrypt(
+        this.ruleForm.user.trim() + salt,
+        public_key,
+        1
+      );
+      let password = sm2.doEncrypt(
+        this.ruleForm.password + salt,
+        public_key,
+        1
+      );
+      account = "04" + account;
+      password = "04" + password;
+      if(salt && date){
+        key = salt+date
+        console.log("validate-key",key)
+      }
+      sign="account="+account+"&password="+password+"&salt="+salt+"&key="+key;
+
+      let parms={
+        account,
+        password,
+        salt:salt,
+        sign: md5(sign),
+        languageCode:  null 
+      }
+
+      login(parms);
+
     },
     shopTip() {
       this.notifyObj = this.$notify({
-        title: '提示',
+        title: "提示",
         message:
-          '目前有两个登陆角色，管理员和普通用户，账号分别为：admin、user,密码都为：123456',
+          "目前有两个登陆角色，管理员和普通用户，账号分别为：admin、user,密码都为：123456",
         duration: 0,
-        iconClass: 'el-icon-s-opportunity'
-      })
-    }
+        iconClass: "el-icon-s-opportunity",
+      });
+    },
   },
   components: {
-    SlideVerify
-  }
-}
+    SlideVerify,
+  },
+};
 </script>
 <style scoped lang="less">
 .login {

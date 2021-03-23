@@ -22,6 +22,9 @@ export default {
   components: {
     adminComponent,
     userComponent
+  },
+  mounted(){
+    console.log("dashbord init")
   }
 }
 </script>
