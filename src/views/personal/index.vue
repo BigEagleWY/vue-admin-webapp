@@ -66,7 +66,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .personal_h {
   width: 100%;
   height: 230px;
@@ -132,7 +132,7 @@ export default {
   }
 }
 </style>
-<style lang="scss">
+<style lang="less">
 .personal {
   .el-tabs__header {
     padding: 15px 0;

@@ -116,7 +116,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .slideSty {
   position: absolute;
   width: 380px;

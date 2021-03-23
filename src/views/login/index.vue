@@ -132,7 +132,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .login {
   height: 100%;
   width: 100%;

@@ -18,7 +18,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .pageAdimin .el-tag {
   margin-right: 10px;
   margin-bottom: 10px;

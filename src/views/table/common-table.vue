@@ -125,13 +125,13 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .fyDiv {
   float: right;
   margin-top: 30px;
 }
 </style>
-<style lang="scss">
+<style lang="less">
 .anoCard {
   .el-card__body:after {
     content: '';

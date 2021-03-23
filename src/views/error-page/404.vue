@@ -8,7 +8,7 @@
 <script>
 export default {}
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .page404 {
   width: 100%;
   height: 100%;

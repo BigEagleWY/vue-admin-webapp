@@ -333,7 +333,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .slideCharts {
   height: calc(100% - 72px);
 }

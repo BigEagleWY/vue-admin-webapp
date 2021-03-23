@@ -11,7 +11,7 @@
 <script>
 export default {}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .animateClass {
   .user_p0,
   .user_p1,

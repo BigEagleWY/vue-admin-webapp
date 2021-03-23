@@ -141,8 +141,8 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
-$mgTop: 30px;
+<style scoped lang="less">
+@mgTop: 30px;
 @mixin shadow {
   box-shadow: 0 0 10px #e2e2e2;
 }
@@ -195,13 +195,13 @@ $mgTop: 30px;
 }
 .lCharts {
   background: #fff;
-  margin-top: $mgTop;
+  margin-top: @mgTop;
   padding: 30px 0;
   @include shadow();
 }
 .barCharts {
   background: #fff;
-  margin-top: $mgTop;
+  margin-top: @mgTop;
   padding: 30px 0;
   @include shadow();
 }
@@ -211,6 +211,6 @@ $mgTop: 30px;
   @include shadow();
 }
 .tableChart {
-  margin-top: $mgTop;
+  margin-top: @mgTop;
 }
 </style>

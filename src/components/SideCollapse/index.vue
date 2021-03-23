@@ -26,7 +26,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .sideCollapse i {
   font-size: 18px;
   color: #363f44;

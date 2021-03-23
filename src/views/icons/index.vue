@@ -59,7 +59,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .driver_p0 {
   font-size: 14px;
   margin-bottom: 20px;

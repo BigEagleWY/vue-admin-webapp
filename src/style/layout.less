@@ -1,12 +1,13 @@
+@import './variable.less';
 #app {
   // .driver-fix-stacking {
   //   position: relative;
   //   overflow: hidden;
   // }
   .wrapper {
-    @extend %width-height;
+    @extend .width-height;
     position: relative;
-    background-color: $bg-gary;
+    background-color: @bg-gary;
     .wrapper_con {
       height: calc(100% - 50px);
       width: 100%;
@@ -20,7 +21,7 @@
     height: 100%;
     & > div {
       padding: 36px 30px;
-      background: $bg-gary;
+      background: @bg-gary;
     }
   }
   .noPadding {
@@ -30,9 +31,9 @@
 // sideBar
 #app {
   .sideBar {
-    width: $sideBarWidth;
+    width: @sideBarWidth;
     height: calc(100% - 50px);
-    background-color: $dark-blue;
+    background-color: @dark-blue;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -46,7 +47,7 @@
       }
     }
     .el-menu {
-      @extend %width-height;
+      @extend .width-height;
       border: none;
     }
   }
@@ -73,12 +74,12 @@
 .header_r {
   height: 100%;
   margin-left: 200px;
-  background-color: $white;
+  background-color: @white;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
   transition: all 0.3s;
 }
 .logoLink {
-  color: $white !important;
+  color: @white !important;
   font-size: 15px;
   margin-left: 18px;
   display: inline-block;
@@ -173,7 +174,7 @@
   right: 0;
   width: 360px;
   box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.2);
-  background-color: $white;
+  background-color: @white;
   z-index: 990;
 }
 // collapse

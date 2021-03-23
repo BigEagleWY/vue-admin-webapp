@@ -54,7 +54,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .cardBox {
   width: 100%;
   .cardHead {

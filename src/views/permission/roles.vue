@@ -245,7 +245,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .rolesControl .mtop30 .el-button {
   padding: 8px 18px;
   font-size: 12px;
@@ -256,7 +256,7 @@ export default {
   }
 }
 </style>
-<style lang="scss">
+<style lang="less">
 .diaForm .el-form-item__label {
   padding-right: 12px;
 }

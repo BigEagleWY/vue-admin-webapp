@@ -54,7 +54,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .uploadImg {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
