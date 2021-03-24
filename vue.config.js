@@ -42,7 +42,7 @@ module.exports = {
       //   }
       // },
       '/api': {
-        target: 'https://mg.kmelearning.com',
+        target: 'https://test.mg.kmelearning.com',
         changeOrigin: true,
         ws:true,
         pathRewrite: {

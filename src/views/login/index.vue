@@ -56,7 +56,8 @@
 
 <script>
 import SlideVerify from "@/components/SlideVerify";
-import { login ,getLoginConfig} from "@/api/login";
+import { message } from "element-ui";
+import { login, getLoginConfig } from "@/api/login";
 import { sm2 } from "sm-crypto";
 import md5 from "md5";
 import func from "@/utils/commonfunc";
@@ -85,9 +86,11 @@ export default {
   },
   mounted() {
     // this.shopTip()
-
-    getLoginConfig();
-
+    // message.info("开始获取API信息");
+    getLoginConfig((data) => {
+      message.info("获取API信息成功");
+      console.log(data);
+    });
   },
   methods: {
     onSuccess() {
@@ -131,7 +134,6 @@ export default {
       password = "04" + password;
       if (salt && date) {
         key = salt + date;
-        console.log("validate-key", key);
       }
       sign =
         "account=" +
@@ -151,7 +153,10 @@ export default {
         languageCode: null,
       };
 
-      login(parms);
+      login(parms,(data)=>{
+        message.info("登录成功");
+        console.log(data);
+      });
     },
     shopTip() {
       this.notifyObj = this.$notify({

@@ -12,11 +12,11 @@ import {
 
 let baseURL = "/api";
 
-if(process.env.ENV=="development"){
-  baseURL = "/api";
-}else{
-  baseURL = "/";
-}
+// if(process.env.ENV=="development"){
+//   baseURL = "/api";
+// }else{
+//   baseURL = "/";
+// }
 
 
 const $axios = axios.create({
@@ -32,6 +32,7 @@ let loading = null
 // 请求拦截器
 $axios.interceptors.request.use(
   config => {
+
     loading = Loading.service({
       text: '拼命加载中'
     })
@@ -51,7 +52,11 @@ $axios.interceptors.response.use(
     if (loading) {
       loading.close()
     }
-    const code = response.status
+    const code = response.status;
+    if ($axios.callback) {
+      $axios.callback(response);
+    }
+
     if ((code >= 200 && code < 300) || code === 304) {
       return Promise.resolve(response.data)
     } else {
@@ -95,30 +100,55 @@ $axios.interceptors.response.use(
 
 
 const defaultData = {
-  companyCode: "fulan",
-  siteCode: "fulan"
+  companyCode: "shyz",
+  siteCode: "shyz"
 }
 // get，post请求方法
 export default {
-  post(url, data) {
-    let params = Object.assign(data, defaultData);
+  post(url, data, successCallback, errorCallback) {
+    let params = data;
+    let postUrl = url + `?companyCode=${defaultData.companyCode}&siteCode=${defaultData.siteCode}`;
+    $axios.callback = (response)=>{
+      successPreCallback(response,successCallback,errorCallback);
+    }
     return $axios({
       method: 'post',
-      url,
-      data: Qs.stringify(params),
+      url: postUrl,
+      // data: Qs.stringify(params),
+      data: params,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type': 'application/json'
       }
-    })
+    });
   },
 
-  get(url, data) {
-    let params = Object.assign(data||{}, defaultData);
-
+  get(url, data, successCallback, errorCallback) {
+    let params = Object.assign(data || {}, defaultData);
+    $axios.callback = (response)=>{
+      successPreCallback(response,successCallback,errorCallback);
+    }
     return $axios({
       method: 'get',
       url,
       params
     })
+  }
+}
+
+
+const successPreCallback = (response,successCallback,errorCallback)=>{
+  const code = response.status;
+  if(code == 200){
+    const data = response.data;
+    if(data.code == "1000"){
+      if(successCallback){
+        successCallback(data);
+      }
+    }else{
+      if(errorCallback){
+        errorCallback(data);
+      }
+    }
   }
 }
