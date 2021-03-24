@@ -8,3 +8,13 @@ export function getInfo() {
   const url = '/getInfo'
   return $axios.get(url)
 }
+
+export function getLoginConfig() {
+  const url = '/web-student/api/portal/theme/color/public/get'
+  return $axios.get(url)
+}
+
+
+
+
+

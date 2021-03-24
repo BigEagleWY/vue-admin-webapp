@@ -10,14 +10,14 @@ import {
 
 
 
-let baseURL = "";
+let baseURL = "/api";
 
-let hashName = location.hash;
-if(hashName.includes("/login")){
-  baseURL= process.env.VUE_APP_LOGIN_API;
+if(process.env.ENV=="development"){
+  baseURL = "/api";
 }else{
-  baseURL= process.env.VUE_APP_BASE_API;
+  baseURL = "/";
 }
+
 
 const $axios = axios.create({
   // 设置超时时间
@@ -95,8 +95,8 @@ $axios.interceptors.response.use(
 
 
 const defaultData = {
-  companyCode: "shyz",
-  siteCode: "shyz"
+  companyCode: "fulan",
+  siteCode: "fulan"
 }
 // get，post请求方法
 export default {
@@ -105,15 +105,15 @@ export default {
     return $axios({
       method: 'post',
       url,
-      data:params,
+      data: Qs.stringify(params),
       headers: {
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       }
     })
   },
 
   get(url, data) {
-    let params = Object.assign(data, defaultData);
+    let params = Object.assign(data||{}, defaultData);
 
     return $axios({
       method: 'get',

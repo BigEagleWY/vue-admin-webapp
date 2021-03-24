@@ -56,7 +56,7 @@
 
 <script>
 import SlideVerify from "@/components/SlideVerify";
-import { login } from "@/api/login";
+import { login ,getLoginConfig} from "@/api/login";
 import { sm2 } from "sm-crypto";
 import md5 from "md5";
 import func from "@/utils/commonfunc";
@@ -86,7 +86,8 @@ export default {
   mounted() {
     // this.shopTip()
 
-    console.log();
+    getLoginConfig();
+
   },
   methods: {
     onSuccess() {
