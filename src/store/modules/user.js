@@ -3,31 +3,42 @@ import { Message } from 'element-ui'
 import router, { resetRouter } from '@/router'
 
 const state = {
-  token: localStorage.getItem('token') ? localStorage.getItem('token') : '', // 认证凭证'
+  token: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : '', // 认证凭证'
   userName: '',
+  userFullName:"",
+  userAccountId:"",
+  userHeadLogo:"",
   roles: [],
-  introduce: ''
+  introduce: '',
+  accessMenus:[]
 }
 const mutations = {
   SET_TOKEN(state, val) {
     state.token = val
-    localStorage.setItem('token', val)
+    sessionStorage.setItem('token', val)
   },
   DEL_TOKEN(state) {
     state.token = ''
     state.userName = ''
     state.roles = ''
     state.introduce = ''
-    localStorage.removeItem('token')
+    state.userFullName = ''
+    state.userAccountId = ''
+    state.userHeadLogo = ''
+    state.accessMenus = []
+    sessionStorage.removeItem('token')
   },
-  SET_ROLES(state, payload) {
-    state.roles = payload
+  SET_ROLES(state, val) {
+    state.roles = val
   },
-  SET_NAME(state, payload) {
-    state.userName = payload
+  SET_NAME(state, val) {
+    state.userName = val
   },
-  SET_INTRODUCE(state, payload) {
-    state.introduce = payload
+  SET_INTRODUCE(state, val) {
+    state.introduce = val
+  },
+  SET_ACCESS_MENUS(state,list){
+    state.accessMenus = list
   }
 }
 const actions = {
